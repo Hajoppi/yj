@@ -1,0 +1,38 @@
+body {
+  position: relative;
+  background-image: url("bg.png");
+  font-family: 'Pirata One', cursive;
+  text-align: center;
+  font-size: 2em;
+  height: 100vh;
+  width: 100vw;
+}
+
+.container {
+  padding: 1em;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+.countdown {
+  font-size: 1.5em;
+}
+
+.guild-row {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.guild-row:nth-child(2n) {
+  background-color: #EEE;
+}
+
+.final-clue {
+  text-align: center;
+  font-size: 1.3em;
+  letter-spacing: 3px;
+  border-radius: 1em;
+  word-wrap: break-word;
+}

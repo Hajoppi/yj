@@ -1,2 +1,28 @@
-<p>Testi</p>
-<p>{{placeholder}}</p>
+<form action="/?gc={{gc}}" method="POST">
+        <input type="hidden" name="gc" value="{{gc}}"/>
+        <h1>Yöjäynä 2019</h1>
+        <h2>{{guild}}</h2>
+        <div class="countdown">
+          <span id="timer-hours">{{time.hours}}:</span>
+          <span id="timer-minutes">{{time.minutes}}:</span>
+          <span id="timer-seconds">{{time.seconds}}</span>
+        </div>
+        <br>
+        <br>
+        <span class="final-clue">
+          {{final_clue}}
+        </span>
+        <br>
+        <br>
+        <br>
+        <div class="code">
+          <span>Syötä koodi:</span>
+          <br>
+          <input type="text" name="code" required/>
+          <input id="btn" type="submit" name="submit" value="Tarkista"/>
+          <br>
+          <span class="msg">
+            {{msg}}
+          </span>
+        </div>
+      </form>

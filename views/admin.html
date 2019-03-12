@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-lg-2 col-md-2 col-xs-2">
+    <strong>Kilta</strong>
+  </div>
+  <div class="col-lg-2 col-md-2 col-xs-2">
+    <strong>Eka vihje</strong>
+  </div>
+  <div class="col-lg-2 col-md-2 col-xs-2">
+    <strong>Toka vihje</strong>
+  </div>
+  <div class="col-lg-2 col-md-2 col-xs-2">
+    <strong>Kolmas vihje</strong>
+  </div>
+</div>
+<% for (var key in statuses) { %>
+  <div class="row guild-row">
+    <% var guild = statuses[key] %>
+    <div class="col-lg-2 col-md-2 col-xs-2">
+      <strong><%= guild.guild %></strong>
+      <form action="yojekku17" method="POST" onsubmit="return confirm('Haluatko todella paljastaa vihjeen killalle {{guild.code}}?? TÄTÄ EI VOI PERUA!');"=>
+        <input type="hidden" name="gc" value="{{guild.code}}"/>
+        <button type="submit" class="btn btn-danger">
+          <i class="icon-user icon-red"></i> Paljasta!
+        </button>
+      </form>
+    </div>
+    <div class="col-lg-2 col-md-2 col-xs-2">
+      <%= guild.first_time %>
+    </div>
+    <div class="col-lg-2 col-md-2 col-xs-2">
+      <%= guild.second_time %>
+    </div>
+    <div class="col-lg-2 col-md-2 col-xs-2">
+      <%= guild.third_time %>
+    </div>
+  </div>
+<%} %>

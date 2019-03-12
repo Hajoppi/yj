@@ -12,6 +12,7 @@
   "dependencies": {
     "handlebars": "^4.1.0",
     "hapi": "^18.1.0",
+    "inert": "^5.1.2",
     "pg": "^7.8.2",
     "vision": "^5.4.4"
   }
