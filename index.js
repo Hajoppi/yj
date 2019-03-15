@@ -51,33 +51,37 @@ process.on('unhandledRejection', (err) => {
   process.exit(1);
 });
 
-function getCountdownTime() {
-  var t1 = Date.parse("2017-04-29T23:00+03:00");
-  var t2 = Date.now();
-  var dif = t1 - t2;
-  var seconds = Math.floor(dif / 1000 % 60);
-  var minutes = Math.floor(dif / 1000 / 60 % 60);
-  var hours = Math.floor(dif / 1000 / 3600);
-  var days = minutes / 24;
-
-  if (dif < 0){
-    return {'hours': '00', 'minutes': '00', 'seconds': '00'};
-  }
-
-  if(hours < 10) { hours = '0'+ hours;}
-  if(minutes < 10) { minutes = '0'+ minutes;}
-  if(seconds < 10) { seconds = '0'+ seconds;}
-  return {'hours': hours, 'minutes': minutes, 'seconds': seconds};
-}
-
 server.route({
   method: 'GET',
   path: '/',
   handler: async function(request, h) {
-    return h.view('index', { placeholder: 'asd'});
+    const code = request.query.gc;
+    if (!code) {
+      return h.view('error', { err: 'Ei laiteta tällästä' })
+    }
+    try {
+      const data = await db.getGuildStatus(code);
+      return h.view('index', {
+        guild: data.guild,
+        gc: data.gc,
+        msg: "sun mutsis",
+      });
+    } catch(err) {
+      return h.view('error', { err: 'Koodi väärin '})
+    }
   }
 });
 
+server.route({
+  method: 'POST',
+  path: '/',
+  handler: async function(request, h) {
+    const postObj = request.payload;
+    const code = request.payload.code;
+    console.log(code);
+    return h.redirect('/');
+  }
+})
 
 
 init();

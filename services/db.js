@@ -7,3 +7,13 @@ pool.on('error', (err, client) => {
   console.error('Unexpected error on idle client', err)
   process.exit(-1)
 });
+
+db.getGuildStatus = async (code) => {
+  const { rows } = await pool.query('SELECT * from guild_statuses where code=$1', [code]);
+  return rows[0];
+};
+
+
+db.terminate = async () => {
+  await pool.end();
+};
