@@ -1,15 +1,16 @@
-create table guild_statuses (
+create table guilds (
   guild text not null primary key,
-  code text unique not null,
-  status int not null default 0,
-  first_time timestamp,
-  second_time timestamp,
-  third_time timestamp,
-  fourth_time timestamp,
-  fifth_time timestamp
+  code text unique not null
 );
 
-insert into guild_statuses (guild, code)
+create table guild_answers (
+  id serial not null primary key,
+  code text references guilds(code),
+  answer text,
+  created timestamp with time zone not null default now()
+);
+
+insert into guilds (guild, code)
 values
   ('AS', 'simulink'),
   ('Inkubio', 'punaruseka'),
@@ -23,8 +24,7 @@ values
   ('IK', 'hermanni'),
   ('Prodeko', 'flamingo'),
   ('TF', 'teknologen'),
-  ('PT', 'orgaaninen'
-);
+  ('PT', 'orgaaninen');
 
 create table answers (
   id serial not null primary key,

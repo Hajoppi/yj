@@ -50,6 +50,12 @@ process.on('unhandledRejection', (err) => {
   console.log(err);
   process.exit(1);
 });
+function timeOver() {
+  const t1 = Date.parse("2019-04-29T23:00+03:00");
+  const t2 = Date.now();
+  const dif = t1 - t2;
+  return dif < 0
+}
 
 server.route({
   method: 'GET',
@@ -60,14 +66,23 @@ server.route({
       return h.view('error', { err: 'Ei laiteta tällästä' })
     }
     try {
-      const data = await db.getGuildStatus(code);
-      return h.view('index', {
-        guild: data.guild,
-        gc: data.gc,
-        msg: "sun mutsis",
-      });
+      const data = await db.getGuildInfo(code);
+      if(timeOver) {
+        return h.view('index', {
+          guild: data.guild,
+          gc: code,
+          msg: "sun mutsis",
+          final_clue: data.progress,
+        });
+      } else {
+        return h.view('final', {
+          guild: data.guild,
+          gc: code
+        });
+      }
     } catch(err) {
-      return h.view('error', { err: 'Koodi väärin '})
+      console.log(err);
+      return h.view('error', { err: 'Ei ihan'})
     }
   }
 });
@@ -76,10 +91,21 @@ server.route({
   method: 'POST',
   path: '/',
   handler: async function(request, h) {
-    const postObj = request.payload;
-    const code = request.payload.code;
-    console.log(code);
-    return h.redirect('/');
+    const answer = request.payload.answer;
+    const guildCode = request.payload.gc
+    if(!guildCode || !answer) {
+      return h.view('error', { err: 'Ei ihan'})
+    }
+    const checkAnswer = await db.checkAnswer(answer, guildCode);
+    console.log(checkAnswer);
+    if(checkAnswer == db.RIGHT_ANSWER) {
+      await db.updateGuildProgress(guildCode, answer);
+      return h.redirect('/?gc=' + guildCode);
+    }else if(checkAnswer == db.SAME_ANSWER){
+      return h.view('error', {err: 'Koodi on käytetty'});
+    } else  {
+      return h.view('error', {err: 'Koodi on väärin'});
+    }
   }
 })
 
