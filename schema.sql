@@ -24,7 +24,8 @@ values
   ('IK', 'hermanni'),
   ('Prodeko', 'flamingo'),
   ('TF', 'teknologen'),
-  ('PT', 'orgaaninen');
+  ('PT', 'orgaaninen'),
+  ('DSDSD', 'bigdata');
 
 create table answers (
   id serial not null primary key,

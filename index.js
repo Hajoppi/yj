@@ -94,7 +94,7 @@ server.route({
   path: '/',
   handler: async function(request, h) {
     const answer = request.payload.answer;
-    const guildCode = request.payload.gc
+    const guildCode = request.payload.gc;
     if(!guildCode || !answer) {
       return h.view('error', { err: 'Ei ihan'})
     }
@@ -121,6 +121,17 @@ server.route({
       console.log(error);
       return h.view('error', {err: 'Ei onnistunut'})
     }
+  }
+});
+
+server.route({
+  method: 'POST',
+  path: '/yojekku19',
+  handler: async function(request, h) {
+    const guildCode = request.payload.gc;
+    await db.revealClues(guildCode);
+    console.log(`Revealed clues for ${guildCode}`);
+    return h.redirect('/yojekku19');
   }
 })
 

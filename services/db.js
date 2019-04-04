@@ -60,7 +60,7 @@ db.checkAnswer = async (answer, code) => {
   const formerAnswers = await formerAnswersQuery;
   if (res.rowCount < 1) {
     return db.WRONG_ANSWER;
-  } else if (!formerAnswers.rows.every( a => a.answerkap   !== answer)) {
+  } else if (!formerAnswers.rows.every( a => a.answer !== answer)) {
     return db.SAME_ANSWER;
   } else {
     return db.RIGHT_ANSWER;
@@ -70,6 +70,13 @@ db.checkAnswer = async (answer, code) => {
 db.updateGuildProgress = async (code, answer) => {
   const res = await pool.query('INSERT into guild_answers (code, answer) values ($1, $2)', [code, answer]);
   return res;
+};
+
+db.revealClues = async (code) => {
+  const q1 = pool.query('INSERT into guild_answers (code, answer) values ($1, $2)', [code, 'revealed']);
+  const q2 = pool.query('INSERT into guild_answers (code, answer) values ($1, $2)', [code, 'revealed']);
+  const q3 = pool.query('INSERT into guild_answers (code, answer) values ($1, $2)', [code, 'revealed']);
+  return await Promise.all([q1, q2, q3]);
 }
 
 db.terminate = async () => {
