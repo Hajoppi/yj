@@ -48,3 +48,28 @@ h1 {
   letter-spacing: 3px;
   word-wrap: break-word;
 }
+
+.input {
+  height: 2rem;
+  font-size: 2rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid;
+  border-color: white;
+  color: black;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.button {
+  color: black;
+  background: transparent;
+  padding: 1rem;
+  font-size: 2rem;
+}
+
+.button:hover {
+  background-color: rgba(0,0,0,0.2);
+}

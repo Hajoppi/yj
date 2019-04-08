@@ -23,13 +23,11 @@ db.RIGHT_ANSWER = 2;
 
 db.getGuildProgess = async (code) => {
   const res = await pool.query('SELECT answer from guild_answers where code=$1', [code]);
-  console.log(res);
   return res.rowCount;
 }
 
 db.getGuildInfo = async (code) => {
   const { rows } = await pool.query('SELECT * from guilds where code=$1', [code]);
-  console.log(rows);
   const result = rows[0];
   result.progress = final_clue_states[await db.getGuildProgess(code)];
   return result;
@@ -60,8 +58,6 @@ db.checkAnswer = async (answer, code) => {
   const formerAnswersQuery = pool.query('SELECT answer from guild_answers where code=$1', [code]);
   const res = await answerQuery;
   const formerAnswers = await formerAnswersQuery;
-  console.log(formerAnswers.rows, answer);
-  console.log(formerAnswers.rows.every( a => a.answer !== answer));
   if (res.rowCount < 1) {
     return db.WRONG_ANSWER;
   } else if (!formerAnswers.rows.every( a => a.answerkap   !== answer)) {
