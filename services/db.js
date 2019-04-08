@@ -33,6 +33,26 @@ db.getGuildInfo = async (code) => {
   return result;
 };
 
+db.getAllStatuses = async () => {
+  const { rows } = await pool.query('SELECT guild, guilds.code, answer, created FROM guilds LEFT OUTER JOIN guild_answers ON (guilds.code = guild_answers.code) ORDER BY guild asc');
+  const result = {};
+  rows.forEach( (row) => {
+    const object = {
+      answer: row.answer,
+      created: row.created
+    };
+    if(object.created === null && !result[row.guild]) {
+      result[row.guild] = { code: row.code, answers: [] };
+    }
+    else if(!result[row.guild]) {
+      result[row.guild] = { code: row.code, answers: [object] };
+    } else {
+      result[row.guild].answers.push(object);
+    }
+  });
+  return result;
+};
+
 db.checkAnswer = async (answer, code) => {
   const answerQuery = pool.query('SELECT answer from answers where answer=$1', [answer]);
   const formerAnswersQuery = pool.query('SELECT answer from guild_answers where code=$1', [code]);
@@ -42,7 +62,7 @@ db.checkAnswer = async (answer, code) => {
   console.log(formerAnswers.rows.every( a => a.answer !== answer));
   if (res.rowCount < 1) {
     return db.WRONG_ANSWER;
-  } else if (!formerAnswers.rows.every( a => a.answer !== answer)) {
+  } else if (!formerAnswers.rows.every( a => a.answerkap   !== answer)) {
     return db.SAME_ANSWER;
   } else {
     return db.RIGHT_ANSWER;

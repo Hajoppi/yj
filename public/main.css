@@ -21,12 +21,27 @@ h1 {
 }
 
 .guild-row {
+  display: flex;
+  justify-content: flex-start;
   padding-top: 1em;
   padding-bottom: 1em;
 }
 
 .guild-row:nth-child(2n) {
   background-color: #EEE;
+}
+
+.guild_row__header {
+  flex: 1;
+}
+
+.guild-row__answers {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.guild-row__item {
+  flex: 1;
 }
 
 .final-clue {

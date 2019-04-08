@@ -109,5 +109,20 @@ server.route({
   }
 })
 
+server.route({
+  method: 'GET',
+  path: '/yojekku19',
+  handler: async function(request, h) {
+    console.log("asd");
+    try {
+      const statuses = await db.getAllStatuses();
+      console.log(statuses);
+      return h.view('admin', { statuses: statuses });
+    } catch(error) {
+      console.log(error);
+      return h.view('error', {err: 'Ei onnistunut'})
+    }
+  }
+})
 
 init();
