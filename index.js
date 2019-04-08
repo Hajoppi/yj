@@ -50,6 +50,8 @@ process.on('unhandledRejection', (err) => {
   console.log(err);
   process.exit(1);
 });
+
+
 function timeOver() {
   const t1 = Date.parse("2019-04-29T23:00+03:00");
   const t2 = Date.now();
@@ -97,7 +99,6 @@ server.route({
       return h.view('error', { err: 'Ei ihan'})
     }
     const checkAnswer = await db.checkAnswer(answer, guildCode);
-    console.log(checkAnswer);
     if(checkAnswer == db.RIGHT_ANSWER) {
       await db.updateGuildProgress(guildCode, answer);
       return h.redirect('/?gc=' + guildCode);
@@ -113,10 +114,8 @@ server.route({
   method: 'GET',
   path: '/yojekku19',
   handler: async function(request, h) {
-    console.log("asd");
     try {
       const statuses = await db.getAllStatuses();
-      console.log(statuses);
       return h.view('admin', { statuses: statuses });
     } catch(error) {
       console.log(error);

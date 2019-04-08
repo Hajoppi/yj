@@ -23,11 +23,13 @@ db.RIGHT_ANSWER = 2;
 
 db.getGuildProgess = async (code) => {
   const res = await pool.query('SELECT answer from guild_answers where code=$1', [code]);
+  console.log(res);
   return res.rowCount;
 }
 
 db.getGuildInfo = async (code) => {
   const { rows } = await pool.query('SELECT * from guilds where code=$1', [code]);
+  console.log(rows);
   const result = rows[0];
   result.progress = final_clue_states[await db.getGuildProgess(code)];
   return result;

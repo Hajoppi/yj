@@ -11,10 +11,11 @@
   </div>
   <div class="guild-row__answers">
     {{#each value.answers }}
-    <div class="col-lg-2 col-md-2 col-xs-2">
-      {{this.created}}
+    <div class="guild-row__item">
+      <span class="date">{{this.created}}</span>
     </div>
     {{/each}}
   </div>
 </div>
 {{/each}}
+<script src="admin.js"></script>
