@@ -8,15 +8,15 @@ function getLocation() {
 }
 
 function showPosition(position) {
-  const gc = $("#gc").val();
+  const guild = $("#guild").val();
   console.log("Latitude:" + position.coords.latitude);
   console.log("Longitude:" + position.coords.longitude);
-  console.log(gc);
+  console.log(guild);
   $.ajax({
     type: "POST",
     url: '/gps',
     data: {
-      gc: gc, 
+      guild: guild, 
       latitude: position.coords.latitude, 
       longitude: position.coords.longitude
     }

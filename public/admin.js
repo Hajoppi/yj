@@ -19,7 +19,7 @@ function getLocations() {
         });
         marker.setStyle(new ol.style.Style({
           image: new ol.style.Icon({
-            src: 'guilds/test.png',
+            src: 'guilds/'+ guild.guild + '.jpg',
             scale: 0.2
           })
         }));

@@ -33,7 +33,7 @@ create table answers (
 );
 
 create table locations (
-  guild_code text primary key REFERENCES guilds(code),
+  guild text primary key REFERENCES guilds(guild),
   latitude decimal not null,
   longitude decimal not null
 );
