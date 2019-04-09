@@ -79,6 +79,6 @@ h1 {
   height: 50vh;
 }
 
-#OpenLayers_Control_Attribution_7 {
+.ol-attribution.ol-uncollapsible {
   display: none;
 }

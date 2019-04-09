@@ -1,18 +1,32 @@
+
 let map;
-let markers;
+let vectorSource;
+
 function getLocations() {
   $.ajax({
     type: "GET",
     url: '/gps',
     success: (response) => {
+      vectorSource.clear();
+      const markers = [];
       for(let guild of response) {
-        console.log(guild.latitude);
-        var lonLat = new OpenLayers.LonLat( guild.longitude, guild.latitude)
-          .transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()
-        );
-        markers.addMarker(new OpenLayers.Marker(lonLat));
-        console.log(markers);
+        const longitude = Number(guild.longitude)
+        const latitude = Number(guild.latitude)
+        var marker = new ol.Feature({
+          geometry: new ol.geom.Point(
+            ol.proj.fromLonLat([longitude, latitude])
+          )
+        });
+        marker.setStyle(new ol.style.Style({
+          image: new ol.style.Icon({
+            src: 'guilds/test.png',
+            scale: 0.2
+          })
+        }));
+        markers.push(marker);
       }
+      console.log(markers);
+      vectorSource.addFeatures(markers);
     }
   });
 }
@@ -23,17 +37,24 @@ $(() => {
     $(obj).text(d.toLocaleTimeString("it-IT"));
   });
 
-  map = new OpenLayers.Map("mapdiv");
-  map.addLayer(new OpenLayers.Layer.OSM());
-  var lonLat = new OpenLayers.LonLat( 24.8275665, 60.190480099999995)
-    .transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()
-  );
-  var lonLat2 = new OpenLayers.LonLat( 24.7275665, 60.190480099999995)
-  .transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()
-);
-  const zoom = 15;
-  markers = new OpenLayers.Layer.Markers("Markers");
-  map.addLayer(markers);
-  map.zoomToMaxExtent();
+  map = new ol.Map({
+    target: 'map',
+    layers: [
+      new ol.layer.Tile({
+        source: new ol.source.OSM()
+      })
+    ],
+    view: new ol.View({
+      center: ol.proj.fromLonLat([24.9425683, 60.1674086]),
+      zoom: 10
+    })
+  });
+  vectorSource = new ol.source.Vector({
+    features: []
+  });
+  var markerVectorLayer = new ol.layer.Vector({
+    source: vectorSource,
+  });
+  map.addLayer(markerVectorLayer);
   getLocations();
 });

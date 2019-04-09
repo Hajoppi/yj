@@ -34,8 +34,8 @@ create table answers (
 
 create table locations (
   guild_code text primary key REFERENCES guilds(code),
-  latitude text not null,
-  longitude text not null
+  latitude decimal not null,
+  longitude decimal not null
 );
 
 insert into answers (answer)
