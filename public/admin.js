@@ -20,12 +20,11 @@ function getLocations() {
         marker.setStyle(new ol.style.Style({
           image: new ol.style.Icon({
             src: 'guilds/'+ guild.guild + '.jpg',
-            scale: 0.2
+            scale: 0.4
           })
         }));
         markers.push(marker);
       }
-      console.log(markers);
       vectorSource.addFeatures(markers);
     }
   });
