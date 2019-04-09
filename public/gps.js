@@ -9,9 +9,6 @@ function getLocation() {
 
 function showPosition(position) {
   const guild = $("#guild").val();
-  console.log("Latitude:" + position.coords.latitude);
-  console.log("Longitude:" + position.coords.longitude);
-  console.log(guild);
   $.ajax({
     type: "POST",
     url: '/gps',
@@ -24,4 +21,3 @@ function showPosition(position) {
 }
 
 getLocation();
-setInterval(getLocation, 60000);
