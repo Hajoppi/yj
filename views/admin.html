@@ -1,13 +1,7 @@
 <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 <script src="admin.js"></script>
-<div id="demoMap" style="height:250px"></div>
-<script src="OpenLayers.js"></script>
-<script>
-    map = new OpenLayers.Map("demoMap");
-    map.addLayer(new OpenLayers.Layer.OSM());
-    map.zoomToMaxExtent();
-</script>
 <div id="mapdiv"></div>
+<p></p>
 {{#each statuses as |value guild|}}
 <!--<div class="guild-row">
   <div class="guild-row__header">
