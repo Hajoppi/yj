@@ -82,3 +82,17 @@ db.revealClues = async (code) => {
 db.terminate = async () => {
   await pool.end();
 };
+
+db.updateGuildLocation = async (data) => {
+  console.log(data);
+  const query = await pool.query('INSERT INTO locations (guild_code, latitude, longitude) values ($1, $2, $3)' +
+   'ON CONFLICT (guild_code) DO UPDATE SET latitude = excluded.latitude, longitude = excluded.longitude',
+   [data.gc, data.latitude, data.longitude]);
+  console.log("Updated GPS coordinates");
+  return query;
+}
+
+db.getGuildLocations = async () => {
+  const { rows } = await pool.query('SELECT * from locations');
+  return rows;
+}

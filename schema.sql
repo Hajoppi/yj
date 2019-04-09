@@ -32,6 +32,12 @@ create table answers (
   answer text not null
 );
 
+create table locations (
+  guild_code text primary key REFERENCES guilds(code),
+  latitude text not null,
+  longitude text not null
+);
+
 insert into answers (answer)
 values
   ('7s8ffo0vj'), ('2bxjkk9g4'), ('hdtgptsqm');

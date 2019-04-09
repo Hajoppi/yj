@@ -133,6 +133,34 @@ server.route({
     console.log(`Revealed clues for ${guildCode}`);
     return h.redirect('/yojekku19');
   }
+});
+
+server.route({
+  method: 'POST',
+  path: '/gps',
+  handler: async (request, h) => {
+    try {
+      const res = await db.updateGuildLocation(request.payload);
+      return res;
+    } catch(error) {
+      console.error(error);
+      throw error;
+    } 
+  }
+});
+
+server.route({
+  method: 'GET',
+  path: '/gps',
+  handler: async (request, h) => {
+    try {
+      const result = await db.getGuildLocations();
+      return result;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 })
 
 init();
