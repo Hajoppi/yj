@@ -65,7 +65,7 @@ server.route({
   handler: async function(request, h) {
     const code = request.query.gc;
     if (!code) {
-      return h.view('error', { err: 'Ei laiteta tällästä' })
+      return h.view('error', { err: 'Ei laiteta tällästä', back: 'hidden' })
     }
     try {
       const data = await db.getGuildInfo(code);
@@ -84,7 +84,7 @@ server.route({
       }
     } catch(err) {
       console.log(err);
-      return h.view('error', { err: 'Ei ihan'})
+      return h.view('error', { err: 'Ei ihan', back: 'hidden'})
     }
   }
 });
@@ -96,16 +96,16 @@ server.route({
     const answer = request.payload.answer;
     const guildCode = request.payload.gc;
     if(!guildCode || !answer) {
-      return h.view('error', { err: 'Ei ihan'})
+      return h.view('error', { err: 'Ei ihan', back: 'hidden'})
     }
     const checkAnswer = await db.checkAnswer(answer, guildCode);
     if(checkAnswer == db.RIGHT_ANSWER) {
       await db.updateGuildProgress(guildCode, answer);
       return h.redirect('/?gc=' + guildCode);
     }else if(checkAnswer == db.SAME_ANSWER){
-      return h.view('error', {err: 'Koodi on käytetty'});
+      return h.view('error', {err: 'Koodi on käytetty', back: 'visible'});
     } else  {
-      return h.view('error', {err: 'Koodi on väärin'});
+      return h.view('error', {err: 'Koodi on väärin', back: 'visible'});
     }
   }
 })
