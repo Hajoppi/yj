@@ -103,9 +103,9 @@ server.route({
       await db.updateGuildProgress(guildCode, answer);
       return h.redirect('/?gc=' + guildCode);
     }else if(checkAnswer == db.SAME_ANSWER){
-      return h.view('error', {err: 'Koodi on käytetty', back: 'visible'});
+      return h.view('error', {err: 'Koodi on käytetty', back: 'style="visibility: visible'});
     } else  {
-      return h.view('error', {err: 'Koodi on väärin', back: 'visible'});
+      return h.view('error', {err: 'Koodi on väärin', back: 'style="visibility: visible'});
     }
   }
 })
