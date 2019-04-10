@@ -51,9 +51,9 @@ h1 {
 }
 
 .input {
-  height: 2rem;
+  height: 3rem;
   font-size: 2rem;
-  background: transparent;
+  background: white;
   border: none;
   border-bottom: 1px solid;
   border-color: white;
@@ -66,7 +66,9 @@ h1 {
 
 .button {
   color: black;
-  background: transparent;
+  background: white;
+  border-color: white;
+  border-radius: 10px;
   padding: 1rem;
   font-size: 2rem;
 }
