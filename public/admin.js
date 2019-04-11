@@ -20,7 +20,7 @@ function getLocations() {
         marker.setStyle(new ol.style.Style({
           image: new ol.style.Icon({
             src: 'guilds/'+ guild.guild + '.png',
-            scale: 0.4
+            scale: 0.25
           })
         }));
         markers.push(marker);
