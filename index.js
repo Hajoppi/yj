@@ -53,8 +53,7 @@ process.on('unhandledRejection', (err) => {
 
 
 function timeOver() {
-  //const t1 = Date.parse("2019-04-29T23:00+03:00");
-  const t1 = Date.parse("2019-04-18T16:24:00+03:00");
+  const t1 = Date.parse("2019-04-29T23:00+03:00");
 
   const t2 = Date.now();
   const dif = t1 - t2;
