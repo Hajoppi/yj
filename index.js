@@ -53,10 +53,13 @@ process.on('unhandledRejection', (err) => {
 
 
 function timeOver() {
-  const t1 = Date.parse("2019-04-29T23:00+03:00");
+  //const t1 = Date.parse("2019-04-29T23:00+03:00");
+  const t1 = Date.parse("2019-04-18T16:24:00+03:00");
+
   const t2 = Date.now();
   const dif = t1 - t2;
-  return dif < 0
+  console.log(dif);
+  return dif < 0;
 }
 
 server.route({
@@ -69,7 +72,7 @@ server.route({
     }
     try {
       const data = await db.getGuildInfo(code);
-      if(timeOver) {
+      if(!timeOver()) {
         return h.view('index', {
           guild: data.guild,
           gc: code,
@@ -79,7 +82,8 @@ server.route({
       } else {
         return h.view('final', {
           guild: data.guild,
-          gc: code
+          gc: code,
+          final_clue: db.final_clue_states[5],
         });
       }
     } catch(err) {

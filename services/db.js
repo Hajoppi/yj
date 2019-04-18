@@ -4,11 +4,11 @@ const db = module.exports = {};
 
 
 pool.on('error', (err, client) => {
-  console.error('Unexpected error on idle client', err)
-  process.exit(-1)
+  console.error('Unexpected error on idle client', err);
+  process.exit(-1);
 });
 
-const final_clue_states = [
+db.final_clue_states = [
                         '___________ _______________ _____',
                         '__ko__t____ _a___o_____a___ __:15',
                         '__ko__t_k__ _as__o___nna__a 2_:15',
@@ -23,13 +23,14 @@ db.RIGHT_ANSWER = 2;
 
 db.getGuildProgess = async (code) => {
   const res = await pool.query('SELECT answer from guild_answers where code=$1', [code]);
+  if (res.rowCount > 5) res.rowCount = 5;
   return res.rowCount;
 }
 
 db.getGuildInfo = async (code) => {
   const { rows } = await pool.query('SELECT * from guilds where code=$1', [code]);
   const result = rows[0];
-  result.progress = final_clue_states[await db.getGuildProgess(code)];
+  result.progress = db.final_clue_states[await db.getGuildProgess(code)];
   return result;
 };
 
