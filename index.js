@@ -23,7 +23,7 @@ const init = async () => {
   await server.register(require('inert'));
   server.route({
     method: 'GET',
-    path: '/{param*}',
+    path: '/static/{param*}',
     handler: {
       directory: {
         path: '.',
@@ -31,7 +31,7 @@ const init = async () => {
         index: true,
       }
     }
-  })
+  });
   server.views({
     engines: {
       html: require('handlebars')
@@ -63,9 +63,10 @@ function timeOver() {
 
 server.route({
   method: 'GET',
-  path: '/',
+  path: '/{gc?}',
   handler: async function(request, h) {
-    const code = request.query.gc;
+    const code = request.params.gc;
+    console.log("code is: " + code);
     if (!code) {
       return h.view('error', { err: 'Ei laiteta tällästä', back: 'hidden' })
     }
@@ -104,7 +105,7 @@ server.route({
     const checkAnswer = await db.checkAnswer(answer, guildCode);
     if(checkAnswer == db.RIGHT_ANSWER) {
       await db.updateGuildProgress(guildCode, answer);
-      return h.redirect('/?gc=' + guildCode);
+      return h.redirect('/' + guildCode);
     }else if(checkAnswer == db.SAME_ANSWER){
       return h.view('error', {err: 'Koodi on käytetty', back: 'style="visibility: visible'});
     } else  {
