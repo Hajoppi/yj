@@ -52,12 +52,12 @@ h1 {
 }
 
 .input {
-  height: 3rem;
+  width: 100%;
+  text-align: center;
   font-size: 2rem;
-  background: white;
   border: none;
+  background: transparent;
   border-bottom: 1px solid;
-  border-color: white;
   color: black;
 }
 
@@ -67,10 +67,11 @@ h1 {
 
 .button {
   color: black;
-  background: white;
-  border-color: white;
+  border-color: black;
+  background: transparent;
   border-radius: 10px;
   padding: 1rem;
+  margin: 1rem;
   font-size: 2rem;
   text-align: center;
 }
