@@ -41,8 +41,9 @@ db.getGuildProgess = async (code) => {
 db.getGuildInfo = async (code) => {
   const { rows } = await pool.query('SELECT * from guilds where code=$1', [code]);
   const result = rows[0];
+  let buffer = 0;
   let progress = await db.getGuildProgess(code);
-  if(extraClueGuilds.indexOf(result.guild) == -1 && progress == 2) {
+  if(extraClueGuilds.indexOf(result.guild) == -1 && progress >= 1) {
     progress += 1;
   }
   if(result.guild == 'DSDSD') {
