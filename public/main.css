@@ -24,19 +24,28 @@ h1 {
   font-size: 2em;
 }
 
-.guild-row {
+.guilds {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.guild-row {
+  flex: 1;
   padding-top: 1em;
   padding-bottom: 1em;
+  font-size: 2em;
+  border-bottom: solid 0.1rem black;
 }
 
 .guild-row:nth-child(2n) {
   background-color: rgba(255, 255, 255,0.4);
 }
 
-.guild_row__header {
+.guild-row__header {
   flex: 1;
+  font-size: 1em; 
 }
 
 .guild-row__answers {

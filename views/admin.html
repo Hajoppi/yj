@@ -3,23 +3,25 @@
 <script src="static/admin.js"></script>
 <div id="map" class="map"></div>
 
-{{#each statuses as |value guild|}}
-<div class="guild-row">
-  <div class="guild-row__header">
-    <strong>{{guild}}</strong>
-    <form action="yojekku19" method="POST" onsubmit="return confirm('Haluatko todella paljastaa vihjeen killalle {{guild}}?? TÄTÄ EI VOI PERUA!');"=>
-      <input type="hidden" name="gc" value="{{value.code}}"/>
-      <button type="submit" class="button">
-        <i class="icon-user icon-red"></i> Paljasta!
-      </button>
-    </form>
-  </div>
-  <div class="guild-row__answers">
-    {{#each value.answers }}
-    <div class="guild-row__item">
-      <span class="date">{{this.created}}</span>
+<div class="guilds">
+  {{#each statuses as |value guild|}}
+  <span class="guild-row">
+    <div class="guild-row__header">
+      <strong>{{guild}}</strong>
+      <form action="yojekku19" method="POST" onsubmit="return confirm('Haluatko todella paljastaa vihjeen killalle {{guild}}?? TÄTÄ EI VOI PERUA!');"=>
+        <input type="hidden" name="gc" value="{{value.code}}"/>
+        <button type="submit" class="button">
+          <i class="icon-user icon-red"></i> Paljasta!
+        </button>
+      </form>
     </div>
-    {{/each}}
-  </div>
+    <div class="guild-row__answers">
+      {{#each value.answers }}
+      <div class="guild-row__item">
+        <span class="date">{{this.created}}</span>
+      </div>
+      {{/each}}
+    </div>
+  </span>
+  {{/each}}
 </div>
-{{/each}}
