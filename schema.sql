@@ -1,6 +1,7 @@
 create table guilds (
   guild text not null primary key,
-  code text unique not null
+  code text unique not null,
+  shout text not null
 );
 
 create table guild_answers (
@@ -10,22 +11,22 @@ create table guild_answers (
   created timestamp with time zone not null default now()
 );
 
-insert into guilds (guild, code)
+insert into guilds (guild, code, shout)
 values
-  ('AS', 'simulink'),
-  ('Inkubio', 'punaruseka'),
-  ('MK', 'killoistaperhein'),
-  ('TiK', 'value'),
-  ('FK', 'epsilon'),
-  ('SIK', 'voltti'),
-  ('AK', 'pallomeri'),
-  ('Athene', 'pallas'),
-  ('KIK', 'roottori'),
-  ('IK', 'hermanni'),
-  ('Prodeko', 'flamingo'),
-  ('TF', 'teknologen'),
-  ('PT', 'orgaaninen'),
-  ('DSDSD', 'bigdata');
+  ('DSDSD', 'bigdata', 'yöllinen'),
+  ('PT', 'orgaaninen', 'teekkarikansa'),
+  ('Inkubio', 'ayrshire', 'kutsuu'),
+  ('Athene', 'pallas', 'suurta'),
+  ('AS', 'simulink', 'arvoa'),
+  ('TiK', 'paniikki', 'kantavaa'),
+  ('Prodeko', 'flamingo', 'toimitusta'),
+  ('FK', 'nabla', 'luoksemme'),
+  ('SIK', 'elamasiretki', 'kertomaan'),
+  ('KIK', 'keskipakosaadin', 'meille'),
+  ('IK', 'hermanni', 'ilosanaa'),
+  ('AK', 'kulma-aurinko', 'yön'),
+  ('MK', 'tuomasveturi', 'pimeydestä'),
+  ('TF', 'sommarochsol', 'valoon!');
 
 create table answers (
   id serial not null primary key,
@@ -40,4 +41,4 @@ create table locations (
 
 insert into answers (answer)
 values
-  ('7s8ffo0vj'), ('2bxjkk9g4'), ('hdtgptsqm');
+  ('7s8ffo0vj'), ('2bxjkk9g4'), ('hdtgptsqm'), ('djdofnbod');

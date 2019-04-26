@@ -3,6 +3,7 @@ body {
   background-image: url("bg.png");
   background-size: cover;
   font-family: 'Pirata One', cursive;
+  
   text-align: center;
   font-size: 2em;
 }
@@ -84,4 +85,9 @@ h1 {
 
 .ol-attribution.ol-uncollapsible {
   display: none;
+}
+
+.shout {
+  font-style: italic;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

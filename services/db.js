@@ -8,14 +8,25 @@ pool.on('error', (err, client) => {
   process.exit(-1);
 });
 
+const extraClueGuilds = ['AK','FK', 'Inkubio','DSDSD'];
+
 db.final_clue_states = [
-                        '___________ _______________ _____',
-                        '__ko__t____ _a___o_____a___ __:15',
-                        '__ko__t_k__ _as__o___nna__a 2_:15',
-                        'Kokoontukaa Kasinonrannassa 23.15',
-                        'Kokoontukaa Kasinonrannassa 23.15',
-                        'Kokoontukaa Kasinonrannassa 23.15'
-                      ];
+  '___________ _______________ _____',
+  '__ko__t____ _a___o_____a___ __:15',
+  '__ko__t_k__ _as__o___nna__a 2_:15',
+  'K_koo_t_ka_ _asi_on__nna_sa 23.15',
+  'Kokoontukaa Kasinonrannassa 23.15',
+  'Kokoontukaa Kasinonrannassa 23.15'
+];
+
+db.final_clue_states_en = [
+  '______ __ ____________ __ _____',
+  'G____r _t _a__________ __ __:15',
+  'G__h_r at _as__onr_n_a a_ 2_:15',
+  'G_th_r at Kas__onr_n_a at 23:15',
+  'Gather at Kasinonranta at 23:15',
+  'Gather at Kasinonranta at 23:15'
+];
 
 db.WRONG_ANSWER = 0;
 db.SAME_ANSWER = 1;
@@ -30,7 +41,15 @@ db.getGuildProgess = async (code) => {
 db.getGuildInfo = async (code) => {
   const { rows } = await pool.query('SELECT * from guilds where code=$1', [code]);
   const result = rows[0];
-  result.progress = db.final_clue_states[await db.getGuildProgess(code)];
+  let progress = await db.getGuildProgess(code);
+  if(extraClueGuilds.indexOf(result.guild) == -1 && progress == 2) {
+    progress += 1;
+  }
+  if(result.guild == 'DSDSD') {
+    result.progress = db.final_clue_states_en[progress];
+  } else {
+    result.progress = db.final_clue_states[progress];
+  }
   return result;
 };
 

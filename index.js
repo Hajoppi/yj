@@ -54,7 +54,6 @@ process.on('unhandledRejection', (err) => {
 
 function timeOver() {
   const t1 = Date.parse("2019-04-29T23:00+03:00");
-
   const t2 = Date.now();
   const dif = t1 - t2;
   console.log(dif);
@@ -76,14 +75,22 @@ server.route({
         return h.view('index', {
           guild: data.guild,
           gc: code,
-          msg: "sun mutsis",
           final_clue: data.progress,
+          en: data.guild === "DSDSD"
         });
       } else {
+        let finalClue = '';
+        if(data.guild === "DSDSD") {
+          finalClue = db.final_clue_states_en[5];
+        } else {
+          finalClue = db.final_clue_states[5];
+        }
         return h.view('final', {
           guild: data.guild,
           gc: code,
-          final_clue: db.final_clue_states[5],
+          final_clue: finalClue,
+          en: data.guild === "DSDSD",
+          shout: data.shout
         });
       }
     } catch(err) {

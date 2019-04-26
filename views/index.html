@@ -17,14 +17,12 @@
   <br>
   <br>
   <div class="code">
-    <span>Syötä koodi:</span>
+    <span>{{#if en}} Insert code: {{else}}Syötä koodi:{{/if}}</span>
     <br>
     <input class="input" type="text" name="answer" required/>
-    <input class="button" id="btn" type="submit" name="submit" value="Tarkista"/>
+    <input class="button" id="btn" type="submit" name="submit" 
+      value="{{#if en}}Check{{else}}Tarkista{{/if}}"/>
     <br>
-    <span class="msg">
-      {{msg}}
-    </span>
   </div>
 </form>
 <script src="static/main.js"></script>
