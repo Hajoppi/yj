@@ -1,11 +1,13 @@
 body {
   position: relative;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
   background-image: url("bg.png");
   background-size: cover;
   font-family: 'Pirata One', cursive;
-  
   text-align: center;
-  font-size: 2em;
 }
 
 .container {
@@ -13,11 +15,13 @@ body {
 }
 
 h1 {
-  font-size: 2em;
+  margin-top: 0.5em;
+  padding-top: 0em;
+  font-size: 3em;
 }
 
 .countdown {
-  font-size: 1.5em;
+  font-size: 2em;
 }
 
 .guild-row {
@@ -46,8 +50,8 @@ h1 {
 
 .final-clue {
   text-align: center;
-  font-size: 1.3em;
-  letter-spacing: 3px;
+  font-size: 2em;
+  letter-spacing: 0.1em;
   word-wrap: break-word;
 }
 
@@ -57,7 +61,7 @@ h1 {
   font-size: 2rem;
   border: none;
   background: transparent;
-  border-bottom: 1px solid;
+  border-bottom: 0.1em solid;
   color: black;
 }
 
@@ -71,7 +75,7 @@ h1 {
   background: transparent;
   border-radius: 10px;
   padding: 1rem;
-  margin: 1rem;
+  margin: 2rem;
   font-size: 2rem;
   text-align: center;
 }
@@ -91,4 +95,8 @@ h1 {
 .shout {
   font-style: italic;
   font-size: 1.5em;
+}
+
+.label {
+  font-size: 2em;
 }
