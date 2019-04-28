@@ -12,6 +12,8 @@ body {
 
 .container {
   padding: 1em;
+  width: 70%;
+  margin: auto;
 }
 
 h1 {
@@ -92,11 +94,6 @@ h1 {
 
 .button:hover {
   background-color: rgba(0,0,0,0.2);
-}
-#map {
-  text-align: center;
-  margin: auto;
-  width: 90%;
 }
 
 .ol-attribution.ol-uncollapsible {

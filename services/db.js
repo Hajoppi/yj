@@ -97,7 +97,8 @@ db.revealClues = async (code) => {
   const q1 = pool.query('INSERT into guild_answers (code, answer) values ($1, $2)', [code, 'revealed']);
   const q2 = pool.query('INSERT into guild_answers (code, answer) values ($1, $2)', [code, 'revealed']);
   const q3 = pool.query('INSERT into guild_answers (code, answer) values ($1, $2)', [code, 'revealed']);
-  return await Promise.all([q1, q2, q3]);
+  const q4 = pool.query('INSERT into guild_answers (code, answer) values ($1, $2)', [code, 'revealed']);
+  return await Promise.all([q1, q2, q3, q4]);
 }
 
 db.terminate = async () => {
