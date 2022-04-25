@@ -3,11 +3,13 @@
 const Hapi = require('hapi');
 const db = require('./services/db');
 const Path = require('path');
+const dotenv = require('dotenv');
+dotenv.config();
 
 
 const server = Hapi.server({
   port: process.env.PORT || 3001,
-  host: 'localhost',
+  host: '0.0.0.0',
   routes: {
     cors: true
   },
@@ -53,7 +55,7 @@ process.on('unhandledRejection', (err) => {
 
 
 function timeOver() {
-  const t1 = Date.parse("2019-04-29T23:00+03:00");
+  const t1 = Date.parse("2022-04-29T23:00+03:00");
   const t2 = Date.now();
   const dif = t1 - t2;
   console.log(dif);
@@ -71,20 +73,11 @@ server.route({
     }
     try {
       const data = await db.getGuildInfo(code);
-      if(!timeOver()) {
-        return h.view('index', {
-          guild: data.guild,
-          gc: code,
-          final_clue: data.progress,
-          en: data.guild === "DSDSD"
-        });
-      } else {
-        let finalClue = '';
-        if(data.guild === "DSDSD") {
-          finalClue = db.final_clue_states_en[5];
-        } else {
-          finalClue = db.final_clue_states[5];
-        }
+      if(!data){
+        return h.view('error', { err: 'Ei ihan', back: 'hidden'});
+      }
+      if(timeOver()) {
+        const finalClue = data.guild === "DSDSD" ? db.final_clue_states_en[5] : db.final_clue_states[5]
         return h.view('final', {
           guild: data.guild,
           gc: code,
@@ -93,9 +86,15 @@ server.route({
           shout: data.shout
         });
       }
+      return h.view('index', {
+        guild: data.guild,
+        gc: code,
+        final_clue: data.progress,
+        en: data.guild === "DSDSD"
+      });
     } catch(err) {
       console.log(err);
-      return h.view('error', { err: 'Ei ihan', back: 'hidden'})
+      return h.view('error', { err: 'Ei ihan', back: 'hidden'});
     }
   }
 });

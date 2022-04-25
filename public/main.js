@@ -1,7 +1,7 @@
 'use strict';
 
 function getCountdownTime() {
-  var t1 = Date.parse("2019-04-29T23:00+03:00");
+  var t1 = Date.parse("2022-04-29T23:00+03:00");
   var t2 = Date.now();
   var dif = t1 - t2;
   var seconds = Math.floor(dif / 1000 % 60);

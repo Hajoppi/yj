@@ -41,7 +41,7 @@ db.getGuildProgess = async (code) => {
 db.getGuildInfo = async (code) => {
   const { rows } = await pool.query('SELECT * from guilds where code=$1', [code]);
   const result = rows[0];
-  let buffer = 0;
+  if(!result) return undefined;
   let progress = await db.getGuildProgess(code);
   if(extraClueGuilds.indexOf(result.guild) == -1 && progress >= 1) {
     progress += 1;
@@ -77,11 +77,10 @@ db.getAllStatuses = async () => {
 db.checkAnswer = async (answer, code) => {
   const answerQuery = pool.query('SELECT answer from answers where answer=$1', [answer]);
   const formerAnswersQuery = pool.query('SELECT answer from guild_answers where code=$1', [code]);
-  const res = await answerQuery;
-  const formerAnswers = await formerAnswersQuery;
+  const [res, formerAnswers] = await Promise.all([answerQuery, formerAnswersQuery])
   if (res.rowCount < 1) {
     return db.WRONG_ANSWER;
-  } else if (!formerAnswers.rows.every( a => a.answer !== answer)) {
+  } else if (formerAnswers.rows.some( a => a.answer === answer)) {
     return db.SAME_ANSWER;
   } else {
     return db.RIGHT_ANSWER;

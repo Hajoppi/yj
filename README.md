@@ -1,24 +1,22 @@
 ## YJ sivu
 
+
+### Käyttöönotto
+- Päivitä tarvittavat koodit schema.sql tiedostoon
+- Päivitä paljastus aika `index.js` -> `timeOver()`-> `t1` muuttujaan.
+- Päivitä paljastus aika `public/main.js` ->`getCountdownTime()`-> `t1` muuttujaan.
+- Admin sivusto on `/yojekku19` sen voi muuttaa `index.js` - tiedostosta, sekä admin.html tiedostosta.
+
 ### Tietokanta
 Tietokanta toimii docker containerissa
 Luo kuva aluksi
 
-```docker build -t yjdb .```
-
-ja sitten käynnistä se
-
-```docker run --rm -d yjdb```
-
-Varmista, että dockerin ip on kirjattu myös .env-tiedostoon kohtaan PGHOST
+```docker-compose up```
 
 ### Palvelin
-Node toimii hyvin pm2 työkalulla
-
-Käynnistä node palvelin
-
-```pm2 start npm -- start```
-
 Nginx kansiossa on default niminen tiedosto. Kopioi se kansioon /etc/nginx/sites-available
+
+Huom certbotilla kannattaa luoda ssl certit, jotta GPS trackaaminen onnistuu
+
 
 Onneksi olkoon, kaiken pitäisi nyt toimia.
