@@ -8,6 +8,9 @@ pool.on('error', (err, client) => {
   process.exit(-1);
 });
 
+// Normal guild answer count is 4
+// Extra guilds have 5
+
 const extraClueGuilds = ['AK','FK', 'Inkubio','DSDSD'];
 
 db.final_clue_states = [

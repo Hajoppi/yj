@@ -6,6 +6,7 @@ const Path = require('path');
 const dotenv = require('dotenv');
 dotenv.config();
 
+const END_TIME = Date.parse("2022-04-29T23:00+03:00");
 
 const server = Hapi.server({
   port: process.env.PORT || 3001,
@@ -23,6 +24,7 @@ const server = Hapi.server({
 const init = async () => {
   await server.register(require('vision'));
   await server.register(require('inert'));
+  console.log("Ending time is", new Date(END_TIME));
   server.route({
     method: 'GET',
     path: '/static/{param*}',
@@ -55,7 +57,7 @@ process.on('unhandledRejection', (err) => {
 
 
 function timeOver() {
-  const t1 = Date.parse("2022-04-29T23:00+03:00");
+  const t1 = END_TIME;
   const t2 = Date.now();
   const dif = t1 - t2;
   console.log(dif);
